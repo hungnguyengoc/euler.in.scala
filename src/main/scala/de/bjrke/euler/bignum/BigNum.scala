@@ -74,7 +74,7 @@ class BigNum() {
   }
 
   private def shiftLeftTen( pos : Int ) : BigNum = {
-    BigNum( Array.make( pos, 0 ) ++ _normalized )
+    BigNum( Array.fill( pos) { 0 } ++ _normalized )
   }
 
   def intMul( factor : Int ) : BigNum = {

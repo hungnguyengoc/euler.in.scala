@@ -23,14 +23,14 @@ object Problem0024 {
   val TARGET = 1000000
 
   def main(args : Array[String]) : Unit = {
-    permut( 1, List() );
+    permut( 1, List() )
   }
 
   def permut( count : Int, current : List[Int] ) : Int = {
     if ( count > TARGET ) {
       return count
     }
-    val x  = ALL -- current
+    val x  = ALL.filterNot( current.contains )
     if ( x.isEmpty ) {
       if ( count == TARGET ) {
         current.foreach( p => print( p ) )

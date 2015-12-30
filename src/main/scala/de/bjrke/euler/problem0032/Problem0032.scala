@@ -22,7 +22,7 @@ object Problem0032 {
   def main(args : Array[String]) : Unit = {
     val digits = List(1,2,3,4,5,6,7,8,9)
     val results = permut( digits, 4 ).foldLeft( Set[Int]() ) { (sa, a) => {
-        permut( digits -- Digits.toDigits( a ).toList, 4 ).foldLeft(sa) { (sb, b) => {
+        permut( digits.filterNot( Digits.toDigits( a ).contains ), 4 ).foldLeft(sa) { (sb, b) => {
             if (checkResult(a, b)) {
               println( a + "*" + b + "=" + (a*b))
               sb + ( a * b )
@@ -44,7 +44,7 @@ object Problem0032 {
     } else if ( len > a.size ) {
       permut(a, a.size )
     } else {
-      a.foldLeft( Set[Int]() ) { (s,e) => s ++ permut( a - e, len - 1).map( _ * 10 + e ) } ++ permut( a, len - 1 )
+      a.foldLeft( Set[Int]() ) { (s,e) => s ++ permut( a.filter( _ != e ), len - 1).map( _ * 10 + e ) } ++ permut( a, len - 1 )
     }
   }
 

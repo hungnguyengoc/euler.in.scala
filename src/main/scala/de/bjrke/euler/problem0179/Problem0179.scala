@@ -36,7 +36,7 @@ object Problem0179 {
   }
 
   def countDivisors( a: Int ) : Int = {
-    val wz = Math.sqrt(a)
+    val wz = Math.sqrt(a).toInt
     val result = (2 to wz).toList.foldLeft(2) { (s, d) => {
   	  if ( a % d == 0 ) {
   	    s + 2

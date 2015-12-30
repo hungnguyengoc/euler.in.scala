@@ -37,8 +37,8 @@ object Problem0018 {
     val reverted = triangle.reverse
 
     println( reverted.tail.foldLeft(reverted.head) { (currentSum, currentRow) => {
-      Array.fromFunction( { n : Int => 
-        currentRow.apply( n ) + Math.max( currentSum.apply( n ), currentSum.apply( n + 1 )) } ) ( currentRow.length )
+      Array.tabulate( currentRow.length ) { n : Int =>
+        currentRow.apply( n ) + Math.max( currentSum.apply( n ), currentSum.apply( n + 1 )) }
     } }.apply(0) )
   }
 }
