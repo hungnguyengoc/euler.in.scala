@@ -41,7 +41,7 @@ object SieveOfErastotenes {
   }
 
   val isPrime = new Helper(
-    new mutable.HashSet[Long]()
+    new mutable.LinkedHashSet[Long]()
   ) {
     def apply( p : Long ) : Boolean = {
       while ( p > pos ) {

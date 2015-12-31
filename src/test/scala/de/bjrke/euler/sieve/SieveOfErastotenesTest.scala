@@ -59,11 +59,11 @@ class SieveOfErastotenesTest {
 
   @DataProvider def testIsPrime =
     Random.shuffle(
-      orderedPrimes.map(Array[Any](_))
+      (0 to orderedPrimes.last.toInt).map{Array[Any](_)}
     ).toArray
 
-  @Test(dataProvider = "testIsPrime") def testIsPrime( l : Long ) {
-    assertTrue(SieveOfErastotenes.isPrime(l))
+  @Test(dataProvider = "testIsPrime") def testIsPrime(l:Long) {
+    assertEquals(SieveOfErastotenes.isPrime(l),orderedPrimes.contains(l))
   }
 
   @DataProvider def testGetPrime =
