@@ -5,3 +5,8 @@ Project Euler in Scala
 
 Problem descriptions can be found at <https://projecteuler.net>
 
+Requirements
+============
+
+JDK 7+ (Scala is automaticly downloaded and used by gradle)
+
