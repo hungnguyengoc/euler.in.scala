@@ -12,6 +12,7 @@ class Problem0035Test {
 
   @Test def testProblem0035() {
     assertEquals( Problem0035.apply, 55 )
+    fail()
   }
 
 }
