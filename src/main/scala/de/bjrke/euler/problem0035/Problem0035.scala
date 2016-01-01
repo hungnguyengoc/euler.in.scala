@@ -3,6 +3,7 @@ package de.bjrke.euler.problem0035
 import de.bjrke.euler.collection.Collections
 import de.bjrke.euler.digits.Digits
 import de.bjrke.euler.sieve.SieveOfErastotenes
+import de.bjrke.euler.Problem
 
 /**
  * The number, 197, is called a circular prime because all rotations of the
@@ -17,7 +18,9 @@ import de.bjrke.euler.sieve.SieveOfErastotenes
  *
  * 55
  */
-object Problem0035 {
+class Problem0035 extends Problem[Int] {
+
+  override val result = 55
 
   def allRotationsPrime( p : Long ) = {
     val d = Digits.toDigits( p )
@@ -29,6 +32,6 @@ object Problem0035 {
 
   def isCircularPrime( p : Long ) = SieveOfErastotenes.isPrime( p ) && allRotationsPrime( p )
 
-  def apply = ( 2 to 1000000 ).filter( isCircularPrime(_)).length
+  override def apply = ( 2 to 1000000 ).filter( isCircularPrime(_)).length
 
 }

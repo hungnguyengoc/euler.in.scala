@@ -1,20 +1,19 @@
-package de.bjrke.euler.problem0001;
+package de.bjrke.euler.problem0001
+
+import de.bjrke.euler.Problem
 
 /**
- * result: 233168
+ * If we list all the natural numbers below 10 that are multiples of 3 or 5,
+ * we get 3, 5, 6 and 9. The sum of these multiples is 23.
+ *
+ * Find the sum of all the multiples of 3 or 5 below 1000.
  */
-object Problem0001 {
-  def main(args : Array[String]) : Unit = {
-    val result = (0 to 999).toList.filter( isMultipleOf3Or5(_)).foldLeft(0) { _ + _ }
-    println(result)
-  }
-  
-  private def isMultipleOf3Or5( a: Int ) : Boolean = {
-    isMultipleOf(a,3) || isMultipleOf(a,5)
-  }
+class Problem0001 extends Problem[Int] {
 
-  private def isMultipleOf( a: Int, b: Int) : Boolean = {
-    a % b == 0
-  }
-  
+  override val result = 233168
+
+  override def apply = (0 to 999)
+    .filter( a => a % 3 == 0 || a % 5 == 0 )
+    .sum
+
 }

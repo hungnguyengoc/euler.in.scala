@@ -14,4 +14,6 @@ dependencies {
 
     testCompile 'org.testng:testng:6.9.9'
     testCompile 'org.scalatest:scalatest_2.11:2.2.5'
+    testCompile 'org.clapper:classutil_2.11:1.0.6'
+
 }
