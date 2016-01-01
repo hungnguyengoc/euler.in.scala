@@ -58,20 +58,26 @@ class SieveOfErastotenesTest {
     4967,4969,4973,4987,4993,4999)
 
   @DataProvider def testIsPrime =
-    Random.shuffle(
-      (0 to orderedPrimes.last.toInt).map{Array[Any](_)}
-    ).toArray
+    Random
+      .shuffle(
+        (0 to orderedPrimes.last.toInt).map{Array[Any](_)}
+      )
+      .take(20)
+      .toArray
 
   @Test(dataProvider = "testIsPrime") def testIsPrime(l:Long) {
     assertEquals(SieveOfErastotenes.isPrime(l),orderedPrimes.contains(l))
   }
 
   @DataProvider def testGetPrime =
-    Random.shuffle(
-      orderedPrimes.zipWithIndex.map{
-        a => Array[Any](a._1,a._2)
-      }
-    ).toArray
+    Random
+      .shuffle(
+        orderedPrimes.zipWithIndex.map{
+          a => Array[Any](a._1,a._2)
+        }
+      )
+      .take(20)
+      .toArray
 
   @Test(dataProvider = "testGetPrime") def testGetPrime( p : Long, i : Int ) {
     assertEquals(SieveOfErastotenes.getPrime(i), p)
