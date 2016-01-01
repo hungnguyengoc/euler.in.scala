@@ -1,13 +1,20 @@
 package de.bjrke.euler.problem0004
 
+import de.bjrke.euler.Problem
+import de.bjrke.euler.digits.Digits
+
 /**
+ * A palindromic number reads the same both ways. The largest palindrome made
+ * from the product of two 2-digit numbers is 9009 = 91 × 99.
+ *
+ * Find the largest palindrome made from the product of two 3-digit numbers.
  * result is: 906609
  */
-object Problem0004 {
+class Problem0004 extends Problem[Int] {
 
-  def main(args : Array[String]) : Unit = {
-    println(findPalindrome1(999,0))    
-  }
+  override val result = 906609
+
+  override def apply = findPalindrome1(999,0)
 
   def findPalindrome1( a: Int, currentMax: Int ) : Int = {
     if ( a * a < currentMax ) {
@@ -22,20 +29,11 @@ object Problem0004 {
     val p = a * b;
     if ( p < currentMax ) {
       currentMax
-    } else if ( isPalindrome (p) ) {
+    } else if ( Digits.isPalindrome (p) ) {
       p
     } else {
       findPalindrome2( a, b-1, currentMax)
     }
   }
 
-  def isPalindrome( p: Int ) : Boolean = isPalindrome(p.toString)
-  
-  def isPalindrome( p: String ) : Boolean = {
-    if ( p.length <= 1) {
-      true
-    } else {
-      p.charAt(0) == p.charAt(p.length-1) && isPalindrome(p.substring(1,p.length-1))
-    }
-  }
 }
