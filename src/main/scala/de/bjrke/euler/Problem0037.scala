@@ -42,9 +42,3 @@ class Problem0037 extends Problem[Int] {
   override def apply = recursion(0).filter( leftReducable ).sum
 
 }
-
-object Problem0037 {
-  def main(args: Array[String]) {
-    println( "\n" + new Problem0037().apply )
-  }
-}
