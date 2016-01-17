@@ -32,6 +32,6 @@ class Problem0035 extends Problem[Int] {
 
   def isCircularPrime( p : Long ) = SieveOfErastotenes.isPrime( p ) && allRotationsPrime( p )
 
-  override def apply = ( 2 to 1000000 ).filter( isCircularPrime(_)).length
+  override def apply = ( 2 to 1000000 ).count{ isCircularPrime(_) }
 
 }
