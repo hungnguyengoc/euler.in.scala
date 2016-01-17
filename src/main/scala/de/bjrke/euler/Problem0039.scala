@@ -22,13 +22,12 @@ class Problem0039 extends Problem[Int] {
     for ( a <- 1 to 1000 ) {
       for ( b <- 1 to Math.min( a, 1000 - 2 * a ) ) {
         squares.get(a * a + b * b) match {
-          case Some(c) => {
-            val sum = a + b + c;
+          case Some(c) =>
+            val sum = a + b + c
             if ( sum <= 1000 ) {
               results.update(sum,results(sum) + 1)
             }
-          }
-          case None => {}
+          case None =>
         }
       }
     }

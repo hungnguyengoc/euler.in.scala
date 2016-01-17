@@ -1,6 +1,5 @@
-package de.bjrke.euler.problem0004
+package de.bjrke.euler
 
-import de.bjrke.euler.Problem
 import de.bjrke.euler.digits.Digits
 
 /**

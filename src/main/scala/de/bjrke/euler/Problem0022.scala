@@ -1,8 +1,8 @@
-package de.bjrke.euler.problem0022
+package de.bjrke.euler
 
+import scala.collection.mutable.ListBuffer
 import scala.io._
 import scala.util._
-import scala.collection.mutable.ListBuffer
 
 /**
  * Using names.txt  (right click and 'Save Link/Target As...'), a 46K text file 
@@ -19,28 +19,29 @@ import scala.collection.mutable.ListBuffer
  * 
  * 871198282
  */
-object Problem0022 {
-  def main(args : Array[String]) : Unit = {
-    val src = Source.fromURL( getClass.getClassLoader.getResource("de/bjrke/euler/problem0022/names.txt") )
-    var currentword = "";
+class Problem0022 extends Problem[Int] {
+
+  override val result = 871198282
+
+  override def apply = {
+    val src = Source.fromURL( getClass.getClassLoader.getResource("Problem0022_names.txt") )
+    var currentword = ""
     val names = new ListBuffer[String]()
-    src.foreach( _ match {
+    src.foreach{
       case '"' => if ( !currentword.isEmpty ) {
           names += currentword
           currentword = ""
       }
       case ',' =>
-      case ch : Char => currentword += ch 
-    } )
-    val res = names.toArray
-    var total = 0
-    Sorting.quickSort( res )
-    for ( i <- 0 until res.length ) {
-      total += ( i + 1 ) * res( i ).foldLeft( 0 )( _ + _ - ( 'A' - 1 ) )
+      case ch => currentword += ch
     }
-    println( total )
+
+    names
+      .sorted
+      .map{ n => n.map{ _ - ('A' - 1) }.sum }
+      .zipWithIndex
+      .map{ case (s,i) => s * ( i + 1 ) }
+      .sum
   }
-
-
 
 }

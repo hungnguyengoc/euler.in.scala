@@ -1,9 +1,8 @@
-package de.bjrke.euler.problem0035
+package de.bjrke.euler
 
 import de.bjrke.euler.collection.Collections
 import de.bjrke.euler.digits.Digits
 import de.bjrke.euler.sieve.SieveOfErastotenes
-import de.bjrke.euler.Problem
 
 /**
  * The number, 197, is called a circular prime because all rotations of the
