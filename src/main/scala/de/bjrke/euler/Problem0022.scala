@@ -26,7 +26,7 @@ class Problem0022 extends Problem[Int] {
   override def apply = {
     val src = Source.fromURL( getClass.getClassLoader.getResource("Problem0022_names.txt") )
     var currentword = ""
-    val names = new ListBuffer[String]()
+    val names = new ListBuffer[String]( )
     src.foreach{
       case '"' => if ( !currentword.isEmpty ) {
           names += currentword

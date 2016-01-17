@@ -3,11 +3,11 @@ package de.bjrke.euler
 import de.bjrke.euler.sieve.SieveOfErastotenes
 
 /**
+ * Largest prime factor
+ *
  * The prime factors of 13195 are 5, 7, 13 and 29.
  *
  * What is the largest prime factor of the number 600851475143 ?
- *
- * result: 6857
  */
 class Problem0003 extends Problem[Long] {
 

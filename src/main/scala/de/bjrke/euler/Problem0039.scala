@@ -31,7 +31,7 @@ class Problem0039 extends Problem[Int] {
         }
       }
     }
-    return results.zipWithIndex.maxBy(_._1)._2
+    results.zipWithIndex.maxBy(_._1)._2
   }
 
 }
