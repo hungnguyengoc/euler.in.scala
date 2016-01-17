@@ -5,10 +5,37 @@ repositories {
     mavenCentral()
 }
 
+class LocalTestResult {
+    TestDescriptor _descriptor
+    TestResult _result
+
+    def duration() {
+        return _result.endTime - _result.startTime
+    }
+}
+
 test {
     useTestNG()
     testLogging {
         events "passed", "skipped", "failed"
+    }
+
+    List<LocalTestResult> _results = []
+
+    beforeSuite{
+        _results = []
+    }
+    afterTest { descriptor, result ->
+        _results += new LocalTestResult(_descriptor: descriptor, _result: result)
+    }
+    afterSuite{
+        if ( !_results.isEmpty() ) {
+            println('-= Hall of Shame =- -= The Bad Ten =-')
+            _results.sort { it.duration() }.reverse().take(10).each {
+                println("${(it.duration()) / 1000.0} secs: ${it._descriptor.className}.${it._descriptor.name}")
+            }
+            _results = []
+        }
     }
 }
 
