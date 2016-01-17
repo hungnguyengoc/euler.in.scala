@@ -1,10 +1,19 @@
-package de.bjrke.euler.problem0011
+package de.bjrke.euler
 
 /**
- * 70600674
+ * Largest product in a grid
+ *
+ * In the 20×20 grid below, four numbers along a diagonal line have been marked in red.
+ *
+ * The product of these numbers is 26 × 63 × 78 × 14 = 1788696
+ * What is the greatest product of four adjacent numbers in the same direction
+ * (up, down, left, right, or diagonally) in the 20×20 grid?
  */
-object Problem0011 {
-  def main(args : Array[String]) : Unit = {
+class Problem0011 extends Problem[Int] {
+
+  override val result = 70600674
+
+  override def apply = {
     val a = Array(
       Array( 8,  2, 22, 97, 38, 15,  0, 40,  0, 75,  4,  5,  7, 78, 52, 12, 50, 77, 91,  8),
       Array(49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48,  4, 56, 62,  0),
@@ -27,44 +36,36 @@ object Problem0011 {
       Array(20, 73, 35, 29, 78, 31, 90,  1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57,  5, 54),
       Array( 1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52,  1, 89, 19, 67, 48))
 
-    def value( x : Int, y : Int ) : Int =
+    def value( x : Int, y : Int ) =
       if ( x >= 0 && y >= 0 && x < 20 && y < 20 ) {
         a.apply(y).apply(x)
       } else {
         0
       }
 
-    def product( x1 : Int, y1 : Int, x2 : Int, y2 : Int, x3 : Int, y3 : Int, x4 : Int, y4 : Int ) =
-      value(x1,y1) * value(x2,y2) * value(x3,y3) * value(x4,y4)
-
-    def horizontal( x : Int, y : Int ) : Int =
-      product(x,y, x+1,y, x+2,y, x+3,y)
-
-    def vertical( x : Int, y : Int ) : Int =
-      product(x,y, x,y+1, x,y+2, x,y+3)
-
-    def diagonal( x : Int, y : Int ) : Int =
-      product(x,y, x+1,y+1, x+2,y+2, x+3,y+3)
-
-    def antidiagonal( x : Int, y : Int ) : Int =
-      product(x,y, x-1,y+1, x-2,y+2, x-3,y+3)
-
     var result = 0
-    def newMax( m : Int ) {
-      if ( m > result ) {
-        result = m
-      }
+
+    def product( x1: Int, y1: Int, x2: Int, y2: Int, x3: Int, y3: Int, x4: Int, y4: Int ) {
+      result = math.max( result,
+        value(x1,y1) * value(x2,y2) * value(x3,y3) * value(x4,y4) )
     }
+
+    def horizontal( x : Int, y : Int ) = product(x,y, x+1,y, x+2,y, x+3,y)
+    def vertical( x : Int, y : Int ) = product(x,y, x,y+1, x,y+2, x,y+3)
+    def diagonal( x : Int, y : Int ) = product(x,y, x+1,y+1, x+2,y+2, x+3,y+3)
+    def antidiagonal( x : Int, y : Int ) = product(x,y, x-1,y+1, x-2,y+2, x-3,y+3)
+
+
 
     for (x <- 0 to 19) {
       for (y <- 0 to 19) {
-        newMax(horizontal(x,y))
-        newMax(vertical(x,y))
-        newMax(diagonal(x,y))
-        newMax(antidiagonal(x,y))
+        horizontal(x,y)
+        vertical(x,y)
+        diagonal(x,y)
+        antidiagonal(x,y)
       }
     }
 
-    println(result)
+    result
   }
 }
