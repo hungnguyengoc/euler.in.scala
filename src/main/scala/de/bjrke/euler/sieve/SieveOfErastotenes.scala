@@ -36,7 +36,7 @@ object SieveOfErastotenes {
       while ( _sieve.size <= num ) {
         testAndAppend()
       }
-      return _sieve(num)
+      _sieve(num)
     }
   }
 
@@ -47,7 +47,7 @@ object SieveOfErastotenes {
       while ( p > pos ) {
         testAndAppend()
       }
-      return _sieve.contains(p)
+      _sieve.contains(p)
     }
   }
 

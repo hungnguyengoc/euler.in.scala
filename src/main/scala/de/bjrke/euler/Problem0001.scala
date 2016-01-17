@@ -1,6 +1,4 @@
-package de.bjrke.euler.problem0001
-
-import de.bjrke.euler.Problem
+package de.bjrke.euler
 
 /**
  * If we list all the natural numbers below 10 that are multiples of 3 or 5,
