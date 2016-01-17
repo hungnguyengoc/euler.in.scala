@@ -1,7 +1,5 @@
 package de.bjrke.euler
 
-import de.bjrke.euler.prime.Prime
-
 /**
  * The number 3797 has an interesting property. Being prime itself, it is
  * possible to continuously remove digits from left to right, and remain
@@ -20,7 +18,7 @@ class Problem0037 extends Problem[Int] {
   def recursion( current : Int ) : Seq[Int] = {
     val result = ( 0 to 9 )
       .map( _ + current * 10 )
-      .filter( Prime.isPrime(_) )
+      .filter{ BigInt(_).isProbablePrime(10) }
 
     result ++ result.flatMap( recursion )
   }
@@ -31,7 +29,7 @@ class Problem0037 extends Problem[Int] {
     }
     var j = 10
     while ( j < i ) {
-      if ( !Prime.isPrime( i % j ) ) {
+      if ( !BigInt( i % j ).isProbablePrime( 10 ) ) {
         return false
       }
       j *= 10

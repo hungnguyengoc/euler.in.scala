@@ -28,7 +28,6 @@
 
 package de.bjrke.euler.problem0027
 
-import de.bjrke.euler.prime.Prime
 
 object Problem0027 {
   def main(args : Array[String]) : Unit = {
@@ -52,7 +51,7 @@ object Problem0027 {
 
   def countPrimes( a : Long, b : Long ) : Long = {
     var n = 0L
-    while ( Prime.isPrime( Math.abs( calc( a, b, n ) ) ) ) {
+    while ( BigInt( Math.abs( calc( a, b, n ) ) ).isProbablePrime( 10 ) ) {
       n += 1
     }
     n
