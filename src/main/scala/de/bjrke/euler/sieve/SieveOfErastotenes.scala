@@ -30,7 +30,7 @@ object SieveOfErastotenes {
     new mutable.ArrayBuffer[Long] {
       def enlargeTo = ensureSize(_)
     }
-  ) {
+  ) with Iterable[Long]  {
     def apply( num : Int ) : Long = {
       _sieve.enlargeTo( num )
       while ( _sieve.size <= num ) {
@@ -38,6 +38,21 @@ object SieveOfErastotenes {
       }
       _sieve(num)
     }
+
+    override def iterator = new Iterator[Long] {
+
+      var pos = 0
+
+      override def hasNext = true
+
+      override def next = {
+        val result = apply(pos)
+        pos += 1
+        result
+      }
+
+    }
+
   }
 
   val isPrime = new Helper(
