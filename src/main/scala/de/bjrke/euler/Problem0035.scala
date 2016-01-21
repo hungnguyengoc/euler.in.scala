@@ -4,6 +4,8 @@ import de.bjrke.euler.collection.Collections
 import de.bjrke.euler.digits.Digits
 import de.bjrke.euler.sieve.SieveOfErastotenes
 
+import scala.collection.mutable
+
 /**
  * The number, 197, is called a circular prime because all rotations of the
  * digits: 197, 971, and 719, are themselves prime.
@@ -21,48 +23,43 @@ class Problem0035 extends Problem[Int] {
 
   override val result = 55
 
-  def allRotationsPrime( p : Long ) = {
+  def allRotationsPrime( p : Int ) = {
     val d = p.toString
     ( 1 to d.length - 1 ).forall{ i =>
-      SieveOfErastotenes.isPrime(
-        String.valueOf(Collections.rotate(i, d).toArray).toLong)
+      isPrime( String.valueOf(Collections.rotate(i, d).toArray).toInt )
     }
   }
 
-  def isCircularPrime( p : Long ) =  SieveOfErastotenes.isPrime( p ) && allRotationsPrime( p )
+  val cache = new mutable.HashMap[Int,Boolean]
+
+  def isCircularPrime( p : Int ) =  isPrime( p ) && allRotationsPrime( p )
+
+  private def isPrime( p : Int ) = cache.get( p ) match {
+    case Some(b) => b
+    case None =>
+      val result = BigInt(p).isProbablePrime(10)
+      cache.put( p, result )
+      result
+  }
 
   override def apply = {
     var count = 0
-    for ( f <- digits(0) ) {
-      val xf = f * 100000
-      for ( e <- digits(f) ) {
-        val xe = xf + e * 10000
-        for ( d <- digits(e) ) {
-          val xd = xe + d * 1000
-          for ( c <- allowed ) {
-            val xc = xd + c * 100
-            for ( b <- allowed ) {
-              val xb = xc + b * 10
-              for ( a <- allowed ) {
-                if ( isCircularPrime( xb + a ) ) {
-                  count += 1
-                }
-              }
-            }
-          }
+    for ( a <- allowed0 ) {
+      val xa = a * 1000
+      for ( b <- allowed3 ) {
+        if ( isCircularPrime( xa + b ) ) {
+          count += 1
         }
       }
     }
-    count + 13
+    count + 13 // 13 primes < 100
   }
 
   val allowed = List( 1, 3, 7, 9 )
-  val allowed0 = List( 0, 1, 3, 7, 9 )
-  private def digits( higher : Int ) : Seq[Int] =
-    if ( higher == 0 ) {
-      allowed0
-    } else {
-      allowed
-    }
+
+  val allowed3 = allowed.flatMap( i => allowed.flatMap{ j => allowed.map{ _ +
+    10 * i + 100 * j } } ).toList
+
+  val allowed0 = 0 :: allowed ::: allowed.flatMap( i => allowed.map{ _ + 10 * i } ) ::: allowed3
 
 }
