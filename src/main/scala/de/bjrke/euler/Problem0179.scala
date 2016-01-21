@@ -26,7 +26,7 @@ class Problem0179 extends Problem[Int] {
     result
   }
 
-  override def apply = {
+  def apply = {
     val max = 10000000L
 
     val a = Array.fill(max.toInt+1) { 0L }

@@ -22,15 +22,47 @@ class Problem0035 extends Problem[Int] {
   override val result = 55
 
   def allRotationsPrime( p : Long ) = {
-    val d = Digits.toDigits( p )
-    ( 1 to d.length - 1 )
-      .map{ Collections.rotate(_, d) }
-      .map{ Digits.fromDigits }
-      .forall{ SieveOfErastotenes.isPrime(_) }
+    val d = p.toString
+    ( 1 to d.length - 1 ).forall{ i =>
+      SieveOfErastotenes.isPrime(
+        String.valueOf(Collections.rotate(i, d).toArray).toLong)
+    }
   }
 
-  def isCircularPrime( p : Long ) = SieveOfErastotenes.isPrime( p ) && allRotationsPrime( p )
+  def isCircularPrime( p : Long ) =  SieveOfErastotenes.isPrime( p ) && allRotationsPrime( p )
 
-  override def apply = ( 2 to 1000000 ).count{ isCircularPrime(_) }
+  override def apply = {
+    var count = 0
+    for ( f <- digits(0) ) {
+      val xf = f * 100000
+      for ( e <- digits(f) ) {
+        val xe = xf + e * 10000
+        for ( d <- digits(e) ) {
+          val xd = xe + d * 1000
+          for ( c <- allowed ) {
+            val xc = xd + c * 100
+            for ( b <- allowed ) {
+              val xb = xc + b * 10
+              for ( a <- allowed ) {
+                if ( isCircularPrime( xb + a ) ) {
+                  count += 1
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    count + 13
+  }
+
+  val allowed = List( 1, 3, 7, 9 )
+  val allowed0 = List( 0, 1, 3, 7, 9 )
+  private def digits( higher : Int ) : Seq[Int] =
+    if ( higher == 0 ) {
+      allowed0
+    } else {
+      allowed
+    }
 
 }

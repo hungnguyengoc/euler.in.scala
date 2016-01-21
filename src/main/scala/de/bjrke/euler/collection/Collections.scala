@@ -1,6 +1,8 @@
 package de.bjrke.euler.collection
 
 /**
+ * utility for collections
+ *
  * Created by bjrke on 31.12.15.
  */
 object Collections {
@@ -13,7 +15,7 @@ object Collections {
     while (nBounded < 0) {
       nBounded += ls.length
     }
-    return ls.drop(nBounded) ++ ls.take(nBounded)
+    ls.drop(nBounded) ++ ls.take(nBounded)
   }
 
 }
