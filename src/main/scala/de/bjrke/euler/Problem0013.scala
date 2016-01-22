@@ -1,12 +1,19 @@
-package de.bjrke.euler.problem0013
+package de.bjrke.euler
+
+import de.bjrke.euler.bignum.BigNum
 
 /**
- * 5537376230
- * 5537376230390876637302048746832985971773659831892672
+ * Large sum
+ *
+ * Work out the first ten digits of the sum of the following one-hundred
+ * 50-digit numbers.
  */
-object Problem0013 {
-  def main(args : Array[String]) : Unit = {
-    val nums = List(
+class Problem0013 extends Problem[Long] {
+
+  override val result = 5537376230L
+
+  override def apply = {
+    val l = List(
       "37107287533902102798797998220837590246510135740250",
       "46376937677490009712648124896970078050417018260538",
       "74324986199524741059474233309513058123726617309629",
@@ -106,40 +113,14 @@ object Problem0013 {
       "77158542502016545090413245809786882778948721859617",
       "72107838435069186155435662884062257473692284509516",
       "20849603980134001723930671666823555245252804609722",
-      "53503534226472524250874054075591789781264330331690").map(stringToReversedInts(_))
-
-    val result = reversedIntToString( nums.tail.foldLeft(nums.head) { add( _, _ ) } )
-    println(result)
+      "53503534226472524250874054075591789781264330331690")
+      .map(BigNum(_))
+    l
+      .tail
+      .foldLeft(l.head) { _ + _ }
+      .toString
+      .take(10)
+      .toLong
   }
 
-  val ZERO = '0'.toInt
-  def stringToReversedInts( s: String ) : Array[Int] =
-    s.toList.map( _.toInt - ZERO ).reverse.toArray
-
-  def reversedIntToString( a: Array[Int] ) : String =
-    new String(a.map( a => (ZERO + a).toChar )).reverse
-
-  def digit( a: Array[Int], pos: Int ) : Int = {
-    if( a.length <= pos ) {
-      0
-    } else {
-      a.apply(pos)
-    }
-  }
-
-  def add( a: Array[Int], b: Array[Int] ) : Array[Int] = {
-    val l = Math.max(a.length, b.length)
-    val result = new Array[Int](l)
-    var uber = 0;
-    for ( i <- 0 until l ) {
-      val s = digit(a,i) + digit(b,i) + uber
-      uber = s / 10
-      result.update(i, s - 10 * uber )      
-    }
-    if ( uber > 0 ) {
-      result ++ Array(uber)
-    } else {
-      result
-    }
-  }
 }

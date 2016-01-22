@@ -3,31 +3,20 @@ package de.bjrke.euler.bignum
 object BigNum {
   val ZERO = '0'.toInt
 
-  private def apply( reversed : Array[Int] ) =
-    new BigNum {
-      override val _reversed = reversed
-    }
+  private def apply( reversed : Array[Int] ) = new BigNum(reversed)
 
-  def apply( numbers : List[Int] ) =
-    new BigNum {
-      override val _reversed = numbers.reverse.toArray
-    }
+  def apply( numbers : Seq[Int] ) = new BigNum(numbers.reverse.toArray)
 
-  def apply( s : String ) =
-    new BigNum {
-      override val _reversed = s.reverse.toArray.map( _.toInt - ZERO )
-    }
+  def apply( s : String ) : BigNum = apply( s.map{ _.toInt - ZERO } )
 
-  def apply( i : Int ) : BigNum = BigNum( i.toString )
+  def apply( i : Int ) : BigNum = apply( i.toString )
 
-  val BIGZERO = BigNum( "0" )
-  val BIGONE = BigNum( "1" )
+  val BIGZERO = apply( "0" )
+  val BIGONE = apply( "1" )
 
 }
 
-class BigNum() {
-
-  private[bignum] val _reversed = new Array[Int]( 0 )
+class BigNum(val _reversed : Array[Int]) {
 
   private lazy val _normalized = normalize( checked( _reversed ) )
 
@@ -93,7 +82,7 @@ class BigNum() {
 
   def * ( that : BigNum ) : BigNum = {
     var result = BigNum.BIGZERO
-    for ( i <- 0 until _normalized.length ) {
+    for ( i <- _normalized.indices ) {
       result += that.intMul( digit(i) ).shiftLeftTen( i )
     }
     result
@@ -106,13 +95,11 @@ class BigNum() {
 
   def numOfDigits = _normalized.length
 
-  override def equals( that : Any ) : Boolean = {
-    return that != null && that.isInstanceOf[BigNum] && this._normalized.toList == that.asInstanceOf[BigNum]._normalized.toList
-  }
+  override def equals( that : Any ) =
+    that != null && that.isInstanceOf[BigNum] && this._normalized.toList == that.asInstanceOf[BigNum]._normalized.toList
 
-  override def hashCode : Int = {
+  override def hashCode =
     247 + _normalized.toList.hashCode
-  }
 
   def pot( y : Int ) : BigNum = 
     if ( y == 0 ) {
@@ -122,9 +109,9 @@ class BigNum() {
     } else {
       val result = ( this * this ).pot( y / 2 )
       if ( y % 2 == 0 ) {
-      result
+        result
       } else {
-      this * result
+        this * result
       }
     }
   

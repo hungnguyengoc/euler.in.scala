@@ -17,7 +17,7 @@ object Digits {
       result += ( rest % base ).toInt
       rest /= base
     }
-    return result.reverse
+    result.reverse
   }
 
   def digitLength( i : Long ) =
