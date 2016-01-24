@@ -13,16 +13,7 @@ class Problem0010 extends Problem[Long] {
 
   override val result = 142913828922L
 
-  override def apply : Long = {
-    var r : Long = 0
-    for ( i <- 0 to Int.MaxValue - 1 ) {
-      val p = SieveOfErastotenes.getPrime(i)
-      if ( p >= 2000000 ) {
-        return r
-      }
-      r += p
-    }
-    throw new IllegalStateException()
-  }
+  override def apply : Long =
+    SieveOfErastotenes.getPrime.takeWhile( _ < 2000000 ).sum
 
 }

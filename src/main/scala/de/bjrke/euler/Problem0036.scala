@@ -17,7 +17,7 @@ class Problem0036 extends Problem[Int] {
 
   override val result = 872187
 
-  override def apply = (0 to 1000000)
+  override def apply = (1 to 1000000 by 2)
     .filter {
       i => Digits.isPalindrome(i) && Digits.isPalindrome(Digits.toDigits(i,2))
     }
