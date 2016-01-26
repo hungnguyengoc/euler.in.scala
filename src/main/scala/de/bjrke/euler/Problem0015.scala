@@ -1,12 +1,20 @@
-package de.bjrke.euler.problem0015
+package de.bjrke.euler
 
 /**
- * result: 137846528820
+ * Lattice paths
+ * 
+ * Starting in the top left corner of a 2×2 grid, and only being able to move
+ * to the right and down, there are exactly 6 routes to the bottom right corner.
+ *
+ * How many such routes are there through a 20×20 grid?
  */
-object Problem0015 {
-  def main(args : Array[String]) : Unit = {
+class Problem0015 extends Problem[Long] {
+
+  override val result = 137846528820L
+
+  override def apply = {
     val p = Position(20,20)
-    println(count( Map() + ( Position(0,0) -> 1L), p ).get( p ))   
+    count( Map() + ( Position(0,0) -> 1L), p ).get( p ).get
   }
 
   def count( map: Map[Position, Long], pos: Position ) : Map[Position, Long] = {
@@ -20,7 +28,7 @@ object Problem0015 {
     }
   }
 
-  case class Position( val x: Int, val y: Int ) {
+  case class Position( x: Int, y: Int ) {
     private val min = Math.min(x,y)
     private val max = Math.max(x,y)
     override def hashCode = 31 + min.hashCode + 2 * max.hashCode
