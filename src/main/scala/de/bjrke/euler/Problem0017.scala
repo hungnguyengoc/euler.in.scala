@@ -1,6 +1,8 @@
-package de.bjrke.euler.problem0017
+package de.bjrke.euler
 
 /**
+ * Number letter counts
+ *
  * If the numbers 1 to 5 are written out in words: one, two, three, four, five,
  * then there are 3 + 3 + 5 + 4 + 4 = 19 letters used in total.
  *
@@ -14,14 +16,12 @@ package de.bjrke.euler.problem0017
  * 
  * result is 21124
  */
-object Problem0017 {
-  def main(args : Array[String]) : Unit = {
-    var result = 0
-    for ( i <- 1 to 1000 ) {
-      result += count( numberToString( i ) )
-    }
-    println( result )
-  }
+class Problem0017 extends Problem[Int] {
+
+  override val result = 21124
+
+  override def apply =
+    ( 1 to 1000 ).map{ i => count( numberToString( i ) ) }.sum
 
   def numberToString( i : Int ) : String = i match {
     case 1 => "one"
@@ -61,20 +61,20 @@ object Problem0017 {
     case 800 => "eight hundred"
     case 900 => "nine hundred"
     case 1000 => "one thousand"
-    case x if ( x > 100 ) => {
+    case x if x > 100 =>
       val rest = x % 100
       numberToString( x - rest ) + " and " + numberToString( rest )
-    }
-    case x => {
+    case x =>
       val rest = x % 10
       numberToString( x - rest ) + "-" +  numberToString( rest )
-    }
   }
 
-  def count( s: String ) : Int = s.toCharArray.foldLeft( 0 ) { (s , c) => if ( c.isLetter ) {
+  def count( s: String ) : Int = s.foldLeft( 0 ) {
+    (s , c) => if ( c.isLetter ) {
       s + 1
     } else {
       s
-    } }
+    }
+  }
 
 }
