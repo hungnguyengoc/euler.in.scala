@@ -9,7 +9,7 @@ object DevProblem {
 
   def main(args: Array[String]): Unit = {
     val start = System.currentTimeMillis
-    val result = new Problem0050().apply
+    val result = new Problem0046().apply
     val time = ( System.currentTimeMillis - start ) / 1000.0
     println( "result: " + result + " took " + time + " seconds" )
   }
