@@ -1,5 +1,7 @@
 package de.bjrke.euler
 
+import de.bjrke.euler.file.Files
+
 import scala.collection.mutable.ListBuffer
 import scala.io._
 import scala.util._
@@ -24,19 +26,7 @@ class Problem0022 extends Problem[Int] {
   override val result = 871198282
 
   override def apply = {
-    val src = Source.fromURL( getClass.getClassLoader.getResource("Problem0022_names.txt") )
-    var currentword = ""
-    val names = new ListBuffer[String]( )
-    src.foreach{
-      case '"' => if ( !currentword.isEmpty ) {
-          names += currentword
-          currentword = ""
-      }
-      case ',' =>
-      case ch => currentword += ch
-    }
-
-    names
+    Files.readWords("Problem0022_names.txt")
       .sorted
       .map{ n => n.map{ _ - ('A' - 1) }.sum }
       .zipWithIndex
