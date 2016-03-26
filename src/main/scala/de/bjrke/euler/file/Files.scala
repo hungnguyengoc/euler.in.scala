@@ -5,7 +5,7 @@ import scala.io.Source
 
 /**
  * utitlity for files
- * 
+ *
  * Created by bjrke on 26.03.16.
  */
 object Files {
